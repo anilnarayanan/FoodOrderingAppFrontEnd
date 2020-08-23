@@ -1,0 +1,28 @@
+.header {
+    flex-direction: row;
+    background-color: #263238;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.search {
+    display: flex;
+    border-radius: 4px;
+    width: 300px;
+    background-color: #263238;
+    margin: 10px;
+    align-content: baseline;
+}
+
+@media screen and (min-width: 600px) {
+    .header {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
