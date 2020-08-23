@@ -26,3 +26,33 @@
         flex-wrap: wrap;
     }
 }
+
+.dispNone{
+    display:none;
+}
+
+.dispBlock {
+    display: block;
+}
+
+.red
+{
+    color: red;
+}
+
+.tabs{
+    margin-bottom: 20px;
+}
+
+.login-modal {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-modal-content {
+    background-color: white;
+    padding-bottom: 20px;
+    outline: none;
+}
