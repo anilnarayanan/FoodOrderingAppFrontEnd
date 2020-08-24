@@ -46,8 +46,8 @@ class Header extends Component {
         this.state = {
             modalIsOpen: false,
             value: 0,
-            username: "",
-            usernameRequired: "dispNone",
+            contactnumber: "",
+            contactNumberRequired: "dispNone",
             password: "",
             passwordRequired: "dispNone",
             email: "",
@@ -81,8 +81,8 @@ class Header extends Component {
         this.setState({value});
     }
 
-    inputUsernameChangeHandler = (e) => {
-        this.setState({username: e.target.value})
+    inputContactNumberChangeHandler = (e) => {
+        this.setState({contactnumber: e.target.value})
     }
 
     inputPasswordChangeHandler = (e) => {
@@ -116,10 +116,10 @@ class Header extends Component {
     }
 
     loginClickHandler = () => {
-        this.state.username === "" ? this.setState({usernameRequired: "dispBlock"}) : this.setState({usernameRequired: "dispNone"});
+        this.state.contactnumber === "" ? this.setState({contactNumberRequired: "dispBlock"}) : this.setState({contactNumberRequired: "dispNone"});
         this.state.password === "" ? this.setState({passwordRequired: "dispBlock"}) : this.setState({passwordRequired: "dispNone"});
 
-        if (this.state.username === "" || this.state.password === "") {
+        if (this.state.contactnumber === "" || this.state.password === "") {
             return
         }
 
@@ -141,7 +141,7 @@ class Header extends Component {
 
 
         xhrLogin.open("POST", this.props.baseUrl + "auth/login");
-        xhrLogin.setRequestHeader("Authorization", "Basic " + window.btoa(this.state.username + ":" + this.state.password));
+        xhrLogin.setRequestHeader("Authorization", "Basic " + window.btoa(this.state.contactnumber + ":" + this.state.password));
         xhrLogin.setRequestHeader("Content-Type", "application/json");
         xhrLogin.setRequestHeader("Cache-Control", "no-cache");
         xhrLogin.send(dataLogin);
@@ -225,9 +225,9 @@ class Header extends Component {
                         {this.state.value === 0 &&
                         <TabContainer>
                             <FormControl required>
-                                <InputLabel htmlFor="mobile">Contact No.</InputLabel>
-                                <Input id="mobile" onChange={this.inputMobileChangeHandler}/>
-                                <FormHelperText className={this.state.mobileRequired}><span
+                                <InputLabel htmlFor="contactnumber">Contact No.</InputLabel>
+                                <Input id="contactnumber" onChange={this.inputContactNumberChangeHandler}/>
+                                <FormHelperText className={this.state.contactNumberRequired}><span
                                     className="red">required</span></FormHelperText>
                             </FormControl><br/><br/>
                             <FormControl required>
@@ -245,11 +245,9 @@ class Header extends Component {
                                 <FormHelperText className={this.state.firstnameRequired}><span
                                     className="red">required</span></FormHelperText>
                             </FormControl><br/><br/>
-                            <FormControl required>
+                            <FormControl>
                                 <InputLabel htmlFor="lastname">Last Name</InputLabel>
                                 <Input id="lastname" onChange={this.inputLastnameChangeHandler}/>
-                                <FormHelperText className={this.state.lastnameRequired}><span
-                                    className="red">required</span></FormHelperText>
                             </FormControl><br/><br/>
                             <FormControl required>
                                 <InputLabel htmlFor="email">Email</InputLabel>
