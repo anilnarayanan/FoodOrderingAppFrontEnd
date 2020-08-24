@@ -220,15 +220,14 @@ class Header extends Component {
                     <div className="login-modal-content">
                         <Tabs className="tabs" value={this.state.value} onChange={this.tabChangeHandler}>
                             <Tab label="Login"/>
-                            <Tab label="Register"/>
+                            <Tab label="Signup"/>
                         </Tabs>
                         {this.state.value === 0 &&
                         <TabContainer>
                             <FormControl required>
-                                <InputLabel htmlFor="username"> Username </InputLabel>
-                                <Input id="username" type="text" username={this.state.username}
-                                       onChange={this.inputUsernameChangeHandler}/>
-                                <FormHelperText className={this.state.usernameRequired}><span
+                                <InputLabel htmlFor="mobile">Contact No.</InputLabel>
+                                <Input id="mobile" onChange={this.inputMobileChangeHandler}/>
+                                <FormHelperText className={this.state.mobileRequired}><span
                                     className="red">required</span></FormHelperText>
                             </FormControl><br/><br/>
                             <FormControl required>
@@ -240,12 +239,6 @@ class Header extends Component {
                             <Button variant="contained" color="primary" onClick={this.loginClickHandler}>LOGIN</Button>
                         </TabContainer>}
                         {this.state.value === 1 && <TabContainer>
-                            <FormControl required>
-                                <InputLabel htmlFor="email">Email</InputLabel>
-                                <Input id="email" type="email" onChange={this.inputEmailChangeHandler}/>
-                                <FormHelperText className={this.state.emailRequired}><span
-                                    className="red">required</span></FormHelperText>
-                            </FormControl><br/><br/>
                             <FormControl required>
                                 <InputLabel htmlFor="firstname">First Name</InputLabel>
                                 <Input id="firstname" onChange={this.inputFirstnameChangeHandler}/>
@@ -259,9 +252,9 @@ class Header extends Component {
                                     className="red">required</span></FormHelperText>
                             </FormControl><br/><br/>
                             <FormControl required>
-                                <InputLabel htmlFor="mobile">Mobile Number</InputLabel>
-                                <Input id="mobile" onChange={this.inputMobileChangeHandler}/>
-                                <FormHelperText className={this.state.mobileRequired}><span
+                                <InputLabel htmlFor="email">Email</InputLabel>
+                                <Input id="email" type="email" onChange={this.inputEmailChangeHandler}/>
+                                <FormHelperText className={this.state.emailRequired}><span
                                     className="red">required</span></FormHelperText>
                             </FormControl><br/><br/>
                             <FormControl required aria-describedby="name-helper-text">
@@ -270,12 +263,18 @@ class Header extends Component {
                                 <FormHelperText className={this.state.passwordRegRequired}><span
                                     className="red">required</span></FormHelperText>
                             </FormControl><br/><br/>
+                            <FormControl required>
+                                <InputLabel htmlFor="mobile">Contact No.</InputLabel>
+                                <Input id="mobile" onChange={this.inputMobileChangeHandler}/>
+                                <FormHelperText className={this.state.mobileRequired}><span
+                                    className="red">required</span></FormHelperText>
+                            </FormControl><br/><br/>
                             {this.state.registrationSuccess === true &&
                             <FormControl>
                                 <span className="successText"> Registration Successful. Please Login!</span>
                             </FormControl>}<br/><br/>
                             <Button variant="contained" color="primary" onClick={this.registerClickHandler}>
-                                REGISTER
+                                SIGNUP
                             </Button>
                         </TabContainer>}
 
