@@ -16,7 +16,6 @@ import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
-
 const styles = (theme => ({
     searchText: {
         'color': 'white',
@@ -25,7 +24,6 @@ const styles = (theme => ({
         }
     }
 }))
-
 
 const TabContainer = function (props) {
     return (
@@ -38,7 +36,6 @@ const TabContainer = function (props) {
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired
 }
-
 class Header extends Component {
 
     constructor() {
@@ -269,7 +266,7 @@ class Header extends Component {
                             </FormControl><br/><br/>
                             {this.state.registrationSuccess === true &&
                             <FormControl>
-                                <span className="successText"> Registration Successful. Please Login!</span>
+                                <span className="successText"> Registered successfully! Please login now!</span>
                             </FormControl>}<br/><br/>
                             <Button variant="contained" color="primary" onClick={this.registerClickHandler}>
                                 SIGNUP
