@@ -17,6 +17,10 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Fade from '@material-ui/core/Fade';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import {MenuList} from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import {Link} from 'react-router-dom';
 
 const TabContainer = function (props) {
     return (
@@ -218,6 +222,7 @@ class Header extends Component {
                 } else {
                     sessionStorage.setItem('uuid', JSON.parse(this.responseText).id);
                     sessionStorage.setItem('access-token', xhrLogin.getResponseHeader('access-token'));
+                    sessionStorage.setItem("customer-name", loginResponse.first_name);
 
                     that.setState({
                         loggedIn: true,
@@ -301,9 +306,20 @@ class Header extends Component {
         console.log(sessionStorage.getItem('access-token'));
         sessionStorage.removeItem('uuid');
         sessionStorage.removeItem('access-token');
-        this.setState({loggedIn: false})
+        sessionStorage.removeItem('customer-name');
+        this.setState({
+            loggedIn: false,
+            isMenuOpen: false
+        })
 
     }
+
+    profileClickHandler = (event) => {
+        this.state.anchorEl ? this.setState({anchorEl: null}) : this.setState({anchorEl: event.currentTarget});
+        this.setState({
+            isMenuOpen: !this.state.isMenuOpen
+        })
+    };
 
     render() {
         const {classes} = this.props;
@@ -322,10 +338,26 @@ class Header extends Component {
                            placeholder='Search by Restaurant Name' type="text" htmlcolor="white"/>
                 </div>
 
-                <Button size="medium" variant="contained" onClick={this.openModalHandler}>
-                    <AccountCircle className="login-button-icon"/>
-                    LOGIN
-                </Button>
+                {this.state.loggedIn !== true ?
+                    <Button size="medium" variant="contained" onClick={this.openModalHandler}>
+                        <AccountCircle />
+                        LOGIN
+                    </Button>
+                    : <Button size="medium" variant="text" onClick={this.profileClickHandler}>
+                        <AccountCircle htmlColor="#c2c2c2"/>
+                        <span className="profile-name">{sessionStorage.getItem("customer-name")}</span>
+
+                    </Button>
+                }
+                <Menu id="profile-menu"
+                      anchorEl={this.state.anchorEl} open={this.state.isMenuOpen}
+                      onClose={this.profileClickHandler}>
+                    <MenuList className="header-menu">
+                        <MenuItem component={Link} to='/profile' disableGutters={false}>My Profile</MenuItem>
+                        <MenuItem component={Link} to='/' onClick={this.logoutHandler}>Logout</MenuItem>
+                    </MenuList>
+                </Menu>
+
 
                 <Modal
                     open={this.state.modalIsOpen}

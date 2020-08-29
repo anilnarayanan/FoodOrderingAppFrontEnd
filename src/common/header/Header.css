@@ -56,3 +56,12 @@
     padding-bottom: 20px;
     outline: none;
 }
+
+.header-menu {
+    outline: none;
+}
+
+.profile-name {
+    color: #c2c2c2;
+    margin-left: 2px;
+}
