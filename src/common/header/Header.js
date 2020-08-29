@@ -13,6 +13,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from "@material-ui/core/InputLabel";
 import Typography from '@material-ui/core/Typography';
+import Snackbar from '@material-ui/core/Snackbar';
+import Fade from '@material-ui/core/Fade';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
@@ -64,6 +66,10 @@ class Header extends Component {
             emailRegMsg: "required",
             mobileMsg: "required",
 
+            snackBarOpen: false,
+            snackBarMessage: "",
+            transition: Fade,
+
             loggedIn: sessionStorage.getItem('access-token') == null ? false : true
         };
 
@@ -71,8 +77,6 @@ class Header extends Component {
 
     openModalHandler = () => {
         this.setState({modalIsOpen: true});
-        console.log("hello");
-        console.log(this.state.modalIsOpen);
     }
 
     closeModalHandler = () => {
@@ -115,6 +119,17 @@ class Header extends Component {
     inputPasswordRegChangeHandler = (e) => {
         this.setState({passwordReg: e.target.value})
 
+    }
+
+    snackBarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.setState({
+            ...this.state,
+            snackBarMessage: "",
+            snackBarOpen: false,
+        })
     }
 
     loginClickHandler = () => {
@@ -197,10 +212,6 @@ class Header extends Component {
                     } else if (signupResponse.code === 'SGR-004') {
                         that.setState({passwordRegRequired: "dispBlock"});
                         that.setState({passwordRegMsg: "Password must contain at least one capital letter, one small letter, one number, and one special character"});
-                    } else {
-                        that.setState({registrationSuccess: true});
-                       // that.openMessageHandler();
-                        that.closeModalHandler();
                     }
                 }
             }
@@ -311,6 +322,21 @@ class Header extends Component {
 
                     </div>
                 </Modal>
+
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.snackBarOpen}
+                    autoHideDuration={4000}
+                    onClose={this.snackBarClose}
+                    TransitionComponent={this.state.transition}
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">{this.state.snackBarMessage}</span>}
+                />
             </div>
         )
     }
