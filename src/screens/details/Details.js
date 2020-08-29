@@ -119,7 +119,7 @@ export default class Details extends Component {
               <Typography
                 variant="h5"
                 component="h5"
-                className={classes.restaurantName}
+                className="restaurantName"
               >
                 {this.state.restaurantList.name}
               </Typography>
@@ -133,7 +133,7 @@ export default class Details extends Component {
               <Typography
                 variant="subtitle1"
                 component="p"
-                className={classes.restaurantCategory}
+                className="restaurantCategory"
               >
                 {this.state.restaurantList.categoriesName}
               </Typography>
@@ -149,7 +149,7 @@ export default class Details extends Component {
                 <Typography
                   variant="caption"
                   component="p"
-                  className={classes.textRatingCost}
+                  className="textRatingCost"
                 >
                   AVERAGE RATING BY{" "}
                   {
@@ -166,7 +166,7 @@ export default class Details extends Component {
                   <Typography
                     variant="subtitle1"
                     component="p"
-                    className={classes.avgCost}
+                    className="avgCost"
                   >
                     {this.state.restaurantList.avgCost}
                   </Typography>
@@ -221,7 +221,7 @@ export default class Details extends Component {
                       </Typography>
                     </div>
                     <IconButton
-                      className={classes.addButton}
+                      className="addButton"
                       aria-label="add"
                       onClick={() => this.itemAddOnClickHandler(item)}
                     >
@@ -237,10 +237,7 @@ export default class Details extends Component {
           <Card className={classes.myCart}>
             <CardHeader
               avatar={
-                <Avatar
-                  aria-label="shopping-cart"
-                  className={classes.shoppingCart}
-                >
+                <Avatar aria-label="shopping-cart" className="shoppingCart">
                   <Badge
                     badgeContent={this.state.cartList.length}
                     color="primary"
@@ -256,9 +253,9 @@ export default class Details extends Component {
               titleTypographyProps={{
                 variant: "h6",
               }}
-              className={classes.cartHeader}
+              className="cartHeader"
             />
-            <CardContent className={classes.cardContent}>
+            <CardContent className="cardContent">
               {this.state.cartList.map((cartItem) => (
                 <div className="cart_menu_item_name" key={cartItem.id}>
                   <i
@@ -272,7 +269,7 @@ export default class Details extends Component {
                   <Typography
                     variant="subtitle1"
                     component="p"
-                    className={classes.menuItemName}
+                    className="menuItemName"
                     id="cart-menu-item-name"
                   >
                     {cartItem.name[0].toUpperCase() + cartItem.name.slice(1)}
@@ -310,7 +307,7 @@ export default class Details extends Component {
                     <Typography
                       variant="subtitle1"
                       component="p"
-                      className={classes.itemPrice}
+                      className="itemPrice"
                       id="cart_item_price"
                     >
                       {cartItem.totAmt.toFixed(2)}
@@ -322,7 +319,7 @@ export default class Details extends Component {
                 <Typography
                   variant="subtitle2"
                   component="p"
-                  className={classes.totalAmount}
+                  className="totalAmount"
                 >
                   TOTAL AMOUNT
                 </Typography>
@@ -343,7 +340,7 @@ export default class Details extends Component {
                 variant="contained"
                 color="primary"
                 fullWidth={true}
-                className={classes.checkOutButton}
+                className="checkOutButton"
                 onClick={this.checkOutButtonClickHandler}
               >
                 CHECKOUT
