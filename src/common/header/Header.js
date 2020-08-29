@@ -16,6 +16,18 @@ import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
+const TabContainer = function (props) {
+    return (
+        <Typography component="form" style={{padding: 0, textAlign: 'center'}}>
+            {props.children}
+        </Typography>
+    );
+}
+
+TabContainer.propTypes = {
+    children: PropTypes.node.isRequired
+}
+
 const styles = (theme => ({
     searchText: {
         'color': 'white',
@@ -25,17 +37,6 @@ const styles = (theme => ({
     }
 }))
 
-const TabContainer = function (props) {
-    return (
-        <Typography component="div" style={{padding: 0, textAlign: 'center'}}>
-            {props.children}
-        </Typography>
-    );
-}
-
-TabContainer.propTypes = {
-    children: PropTypes.node.isRequired
-}
 class Header extends Component {
 
     constructor() {
@@ -58,9 +59,13 @@ class Header extends Component {
             mobileRequired: "dispNone",
             passwordRegRequired: "dispNone",
             registrationSuccess: false,
+            passwordMsg: "required",
+            passwordRegMsg: "required",
+            emailRegMsg: "required",
+            mobileMsg: "required",
+
             loggedIn: sessionStorage.getItem('access-token') == null ? false : true
         };
-
 
     }
 
@@ -137,7 +142,7 @@ class Header extends Component {
         })
 
 
-        xhrLogin.open("POST", this.props.baseUrl + "auth/login");
+        xhrLogin.open("POST", this.props.baseUrl + "customer/login  ");
         xhrLogin.setRequestHeader("Authorization", "Basic " + window.btoa(this.state.contactnumber + ":" + this.state.password));
         xhrLogin.setRequestHeader("Content-Type", "application/json");
         xhrLogin.setRequestHeader("Cache-Control", "no-cache");
@@ -145,12 +150,13 @@ class Header extends Component {
 
     }
 
-    registerClickHandler = () => {
+    signUpClickHandler = () => {
         this.state.email === "" ? this.setState({emailRequired: "dispBlock"}) : this.setState({emailRequired: "dispNone"});
         this.state.firstname === "" ? this.setState({firstnameRequired: "dispBlock"}) : this.setState({firstnameRequired: "dispNone"});
         this.state.lastname === "" ? this.setState({lastnameRequired: "dispBlock"}) : this.setState({lastnameRequired: "dispNone"});
         this.state.mobile === "" ? this.setState({mobileRequired: "dispBlock"}) : this.setState({mobileRequired: "dispNone"});
         this.state.passwordReg === "" ? this.setState({passwordRegRequired: "dispBlock"}) : this.setState({passwordRegRequired: "dispNone"});
+
         if (this.state.email === "" || this.state.firstname === "" || this.state.lastname === "" || this.state.mobile === "" || this.state.passwordReg === "") {
             return;
         }
@@ -160,7 +166,7 @@ class Header extends Component {
             "email_address": this.state.email,
             "first_name": this.state.firstname,
             "last_name": this.state.lastname,
-            "mobile_number": this.state.mobile,
+            "contact_number": this.state.mobile,
             "password": this.state.passwordReg
         })
 
@@ -168,11 +174,39 @@ class Header extends Component {
         xhrSignup.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
                 console.log(this.responseText);
-                that.setState({registrationSuccess: true})
+                if (xhrSignup.status === 201) {
+                    that.setState({
+                        ...that.state,
+                        value: 0,
+                        snackBarMessage: "Registered successfully! Please login now!",
+                        snackBarOpen: true,
+                    })
+                }
+                if (xhrSignup.status === 400) { //checking if error to display the error message
+                    let signupResponse = JSON.parse(this.response);
+
+                    if (signupResponse.code === 'SGR-001') {
+                        that.setState({signupError: "dispBlock"});
+                        that.setState({"signUpErrorMsg": signupResponse.message});
+                    } else if (signupResponse.code === 'SGR-002') {
+                        that.setState({emailRequired: "dispBlock"});
+                        that.setState({emailRegMsg: "Invalid Email"});
+                    } else if (signupResponse.code === 'SGR-003') {
+                        that.setState({mobileRequired: "dispBlock"});
+                        that.setState({mobileMsg: "Contact No. must contain only numbers and must be 10 digits long"});
+                    } else if (signupResponse.code === 'SGR-004') {
+                        that.setState({passwordRegRequired: "dispBlock"});
+                        that.setState({passwordRegMsg: "Password must contain at least one capital letter, one small letter, one number, and one special character"});
+                    } else {
+                        that.setState({registrationSuccess: true});
+                       // that.openMessageHandler();
+                        that.closeModalHandler();
+                    }
+                }
             }
         })
 
-        xhrSignup.open("POST", this.props.baseUrl + "signup");
+        xhrSignup.open("POST", this.props.baseUrl + "customer/signup");
         xhrSignup.setRequestHeader("Content-Type", "application/json");
         xhrSignup.setRequestHeader("Cache-Control", "no-cache");
         xhrSignup.send(dataSignUp);
@@ -231,7 +265,7 @@ class Header extends Component {
                                 <InputLabel htmlFor="password"> Password </InputLabel>
                                 <Input id="password" type="password" onChange={this.inputPasswordChangeHandler}/>
                                 <FormHelperText className={this.state.passwordRequired}><span
-                                    className="red">required</span></FormHelperText>
+                                    className="red">{this.state.passwordMsg}</span></FormHelperText>
                             </FormControl><br/><br/>
                             <Button variant="contained" color="primary" onClick={this.loginClickHandler}>LOGIN</Button>
                         </TabContainer>}
@@ -250,25 +284,27 @@ class Header extends Component {
                                 <InputLabel htmlFor="email">Email</InputLabel>
                                 <Input id="email" type="email" onChange={this.inputEmailChangeHandler}/>
                                 <FormHelperText className={this.state.emailRequired}><span
-                                    className="red">required</span></FormHelperText>
+                                    className="red">{this.state.emailRegMsg}</span></FormHelperText>
                             </FormControl><br/><br/>
                             <FormControl required aria-describedby="name-helper-text">
                                 <InputLabel htmlFor="passwordReg">Password</InputLabel>
                                 <Input type="password" id="passwordReg" onChange={this.inputPasswordRegChangeHandler}/>
                                 <FormHelperText className={this.state.passwordRegRequired}><span
-                                    className="red">required</span></FormHelperText>
+                                    className="red">{this.state.passwordRegMsg}</span></FormHelperText>
                             </FormControl><br/><br/>
                             <FormControl required>
                                 <InputLabel htmlFor="mobile">Contact No.</InputLabel>
                                 <Input id="mobile" onChange={this.inputMobileChangeHandler}/>
                                 <FormHelperText className={this.state.mobileRequired}><span
-                                    className="red">required</span></FormHelperText>
+                                    className="red">{this.state.mobileMsg}</span></FormHelperText>
                             </FormControl><br/><br/>
-                            {this.state.registrationSuccess === true &&
+                            {this.state.registrationSuccess === false &&
                             <FormControl>
-                                <span className="successText"> Registered successfully! Please login now!</span>
-                            </FormControl>}<br/><br/>
-                            <Button variant="contained" color="primary" onClick={this.registerClickHandler}>
+                                <Typography variant="subtitle1" color="error" className={this.state.signupError}
+                                            align="left">{this.state.signUpErrorMsg}</Typography>
+                            </FormControl>}
+                            <br/><br/>
+                            <Button variant="contained" color="primary" onClick={this.signUpClickHandler}>
                                 SIGNUP
                             </Button>
                         </TabContainer>}
