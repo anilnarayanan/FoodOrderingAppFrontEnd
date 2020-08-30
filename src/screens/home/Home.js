@@ -19,12 +19,12 @@ class Home extends Component {
     }
 
     updateCardsGridListCols = () => {
-        if (window.innerWidth >= 1300) {
+        if (window.innerWidth >= 1000) {
             this.setState({cards: 4});
             return;
         }
 
-        if (window.innerWidth >= 1000) {
+        if (window.innerWidth >= 700) {
             this.setState({cards: 3});
             return;
         }
