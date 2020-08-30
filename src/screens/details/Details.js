@@ -38,8 +38,6 @@ export default class Details extends Component {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
-        console.log(this.responseText);
-
         let httpResponse = JSON.parse(xhr.responseText);
         let category;
         let categories = [];
@@ -75,7 +73,6 @@ export default class Details extends Component {
     let totAmount = 0;
     let cartItemsList = this.state.cartList;
     let itemsInCart = false;
-    console.log(cartItemsList);
     cartItemsList.forEach((cartItem) => {
       if (cartItem.id === item.id) {
         itemsInCart = true;
@@ -96,7 +93,6 @@ export default class Details extends Component {
     }
     cartItemsList.forEach((cartItem) => {
       totAmount = totAmount + cartItem.totalAmount;
-      console.log(totAmount);
     });
     this.setState({
       ...this.state,
@@ -109,7 +105,7 @@ export default class Details extends Component {
 
   minusOnClickHandler = (item) => {
     let totAmount = 0;
-    let cartItemsList = this.state.cartItems;
+    let cartItemsList = this.state.cartList;
     let itemRemoved = false;
     let index = cartItemsList.indexOf(item);
     cartItemsList[index].quantity--;
@@ -136,35 +132,35 @@ export default class Details extends Component {
   };
 
   cartAddOnClickHandler = (item) => {
-    let cartItems = this.state.cartItems;
-    let index = cartItems.indexOf(item);
-    cartItems[index].quantity++;
-    cartItems[index].totalAmount =
-      cartItems[index].price * cartItems[index].quantity;
     let totAmount = 0;
-    cartItems.forEach((cartItem) => {
+    let cartItemsList = this.state.cartList;
+    let itemIndex = cartItemsList.indexOf(item);
+    cartItemsList[itemIndex].quantity++;
+    cartItemsList[itemIndex].totalAmount =
+      cartItemsList[itemIndex].price * cartItemsList[itemIndex].quantity;
+    cartItemsList.forEach((cartItem) => {
       totAmount = totAmount + cartItem.totalAmount;
     });
     this.setState({
       ...this.state,
-      cartItems: cartItems,
+      cartItems: cartItemsList,
       snackBarState: true,
       snackBarMessage: "Item quantity increased by 1!",
-      totAmount: totAmount,
+      totAmt: totAmount,
     });
   };
 
   checkoutOnClickHandler = () => {
-    let cartItems = this.state.cartItems;
-    let isLoggedIn =
+    let cartItemsList = this.state.cartList;
+    let isLoggedState =
       sessionStorage.getItem("access-token") == null ? false : true;
-    if (cartItems.length === 0) {
+    if (cartItemsList.length === 0) {
       this.setState({
         ...this.state,
         snackBarState: true,
         snackBarMessage: "Please add an item to your cart!",
       });
-    } else if (!isLoggedIn) {
+    } else if (!isLoggedState) {
       this.setState({
         ...this.state,
         snackBarState: true,
@@ -173,8 +169,8 @@ export default class Details extends Component {
     } else {
       this.props.history.push({
         pathname: "/checkout",
-        cartItems: this.state.cartItems,
-        restaurantDetails: this.state.restaurantDetails,
+        cartItems: this.state.cartList,
+        restaurantDetails: this.state.restaurantList,
       });
     }
   };
@@ -326,7 +322,7 @@ export default class Details extends Component {
           </div>
         </div>
         <div className="my_cart">
-          <Card className={classes.myCart}>
+          <Card className="my_cart">
             <CardHeader
               avatar={
                 <Avatar aria-label="shopping-cart" className="shoppingCart">
