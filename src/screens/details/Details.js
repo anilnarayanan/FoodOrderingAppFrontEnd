@@ -80,7 +80,7 @@ export default class Details extends Component {
       if (cartItem.id === item.id) {
         itemsInCart = true;
         cartItem.quantity++;
-        cartItem.totAmt = cartItem.price * cartItem.quantity;
+        cartItem.totalAmount = cartItem.price * cartItem.quantity;
       }
     });
     if (!itemsInCart) {
@@ -90,19 +90,20 @@ export default class Details extends Component {
         name: item.item_name,
         price: item.price,
         quantity: 1,
-        totAmt: item.price,
+        totalAmount: item.price,
       };
       cartItemsList.push(cartItem);
     }
     cartItemsList.forEach((cartItem) => {
       totAmount = totAmount + cartItem.totalAmount;
+      console.log(totAmount);
     });
     this.setState({
       ...this.state,
-      cartItems: cartItemsList,
+      cartList: cartItemsList,
       snackBarState: true,
       snackBarMessage: "Item added to cart!",
-      totalAmount: totAmount,
+      totAmt: totAmount,
     });
   };
 
@@ -137,17 +138,13 @@ export default class Details extends Component {
   cartAddOnClickHandler = (item) => {
     let cartItems = this.state.cartItems;
     let index = cartItems.indexOf(item);
-    cartItems[index].quantity++; //Updating the quantity ofthe relevant item in the cart
+    cartItems[index].quantity++;
     cartItems[index].totalAmount =
-      cartItems[index].price * cartItems[index].quantity; //updating the total price of the item
-
-    //Updating the Total amount ofthe cart
+      cartItems[index].price * cartItems[index].quantity;
     let totAmount = 0;
     cartItems.forEach((cartItem) => {
       totAmount = totAmount + cartItem.totalAmount;
     });
-
-    //Updating the state
     this.setState({
       ...this.state,
       cartItems: cartItems,
@@ -162,21 +159,18 @@ export default class Details extends Component {
     let isLoggedIn =
       sessionStorage.getItem("access-token") == null ? false : true;
     if (cartItems.length === 0) {
-      //Checking if cart is empty
       this.setState({
         ...this.state,
         snackBarState: true,
         snackBarMessage: "Please add an item to your cart!",
       });
     } else if (!isLoggedIn) {
-      //Checking if customer is not loggedIn.
       this.setState({
         ...this.state,
         snackBarState: true,
         snackBarMessage: "Please login first!",
       });
     } else {
-      //If all the condition are satisfied user pushed to the checkout screen
       this.props.history.push({
         pathname: "/checkout",
         cartItems: this.state.cartItems,
@@ -408,7 +402,7 @@ export default class Details extends Component {
                       className="item_price"
                       id="cart_item_price"
                     >
-                      {cartItem.totAmt.toFixed(2)}
+                      {cartItem.totalAmount.toFixed(2)}
                     </Typography>
                   </div>
                 </div>
