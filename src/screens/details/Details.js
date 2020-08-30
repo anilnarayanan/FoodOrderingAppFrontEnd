@@ -103,18 +103,18 @@ export default class Details extends Component {
     });
   };
 
-  minusOnClickHandler = (item) => {
+  itemRemoveOnClickHandler = (item) => {
     let totAmount = 0;
     let cartItemsList = this.state.cartList;
     let itemRemoved = false;
-    let index = cartItemsList.indexOf(item);
-    cartItemsList[index].quantity--;
-    if (cartItemsList[index].quantity === 0) {
-      cartItemsList.splice(index, 1);
+    let itemsIndex = cartItemsList.indexOf(item);
+    cartItemsList[itemsIndex].quantity--;
+    if (cartItemsList[itemsIndex].quantity === 0) {
+      cartItemsList.splice(itemsIndex, 1);
       itemRemoved = true;
     } else {
-      cartItemsList[index].totalAmount =
-        cartItemsList[index].price * cartItemsList[index].quantity;
+      cartItemsList[itemsIndex].totalAmount =
+        cartItemsList[itemsIndex].price * cartItemsList[itemsIndex].quantity;
     }
     cartItemsList.forEach((cartItem) => {
       totAmount = totAmount + cartItem.totalAmount;
@@ -127,7 +127,7 @@ export default class Details extends Component {
       snackBarMessage: itemRemoved
         ? "Item removed from cart!"
         : "Item quantity decreased by 1!",
-      totalAmount: totAmount,
+      totAmt: totAmount,
     });
   };
 
@@ -211,6 +211,7 @@ export default class Details extends Component {
               <Typography variant="h5" component="h5" className="rest_name">
                 {this.state.restaurantList.name}
               </Typography>
+              <br />
               <Typography
                 variant="subtitle1"
                 component="p"
@@ -218,13 +219,15 @@ export default class Details extends Component {
               >
                 {this.state.restaurantList.locality}
               </Typography>
+              <br />
               <Typography
                 variant="subtitle1"
                 component="p"
                 className="rest_cat"
               >
-                {this.state.restaurantList.categoriesName}
+                {this.state.restaurantList.categories}
               </Typography>
+              <br />
             </div>
             <div className="rest_rating_cost_parent">
               <div className="rest_rating_parent">
@@ -289,7 +292,7 @@ export default class Details extends Component {
                         item.item_type === "NON_VEG" ? "#BE4A47" : "#5A9A5B"
                       }
                     />
-                    &nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
                     <Typography
                       variant="subtitle1"
                       component="p"
@@ -300,6 +303,7 @@ export default class Details extends Component {
                     </Typography>
                     <div className="item_price">
                       <i className="fa fa-inr" aria-hidden="true"></i>
+                      &nbsp;
                       <Typography
                         variant="subtitle1"
                         component="p"
@@ -367,7 +371,7 @@ export default class Details extends Component {
                       className={classes.cartItemButton}
                       id="minus_button"
                       aria-label="remove"
-                      onClick={() => this.minusOnClickHandler(cartItem)}
+                      onClick={() => this.itemRemoveOnClickHandler(cartItem)}
                     >
                       <FaMinus />
                     </IconButton>
