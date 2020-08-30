@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import "./Details.css";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import Badge from "@material-ui/core/Badge";
-import "./Details.css";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -10,6 +10,7 @@ import { FaStar } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
 import { FaCircle } from "react-icons/fa";
+import Fade from "@material-ui/core/Fade";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
@@ -24,6 +25,10 @@ export default class Details extends Component {
       categoryList: [],
       cartList: [],
       totAmt: 0,
+      snackBarState: false,
+      snackBarMessage: "",
+      transition: Fade,
+      badgeVisible: false,
     };
   }
 
@@ -67,37 +72,134 @@ export default class Details extends Component {
   }
 
   itemAddOnClickHandler = (item) => {
-    let cartItems = this.state.cartItems;
-    let itemInCart = false;
-    cartItems.forEach((cartItem) => {
+    let totAmount = 0;
+    let cartItemsList = this.state.cartList;
+    let itemsInCart = false;
+    console.log(cartItemsList);
+    cartItemsList.forEach((cartItem) => {
       if (cartItem.id === item.id) {
-        itemInCart = true;
+        itemsInCart = true;
         cartItem.quantity++;
-        cartItem.totalAmount = cartItem.price * cartItem.quantity;
+        cartItem.totAmt = cartItem.price * cartItem.quantity;
       }
     });
-    if (!itemInCart) {
+    if (!itemsInCart) {
       let cartItem = {
         id: item.id,
+        itemType: item.item_type,
         name: item.item_name,
         price: item.price,
-        totalAmount: item.price,
         quantity: 1,
-        itemType: item.item_type,
+        totAmt: item.price,
       };
-      cartItems.push(cartItem);
+      cartItemsList.push(cartItem);
     }
+    cartItemsList.forEach((cartItem) => {
+      totAmount = totAmount + cartItem.totalAmount;
+    });
+    this.setState({
+      ...this.state,
+      cartItems: cartItemsList,
+      snackBarState: true,
+      snackBarMessage: "Item added to cart!",
+      totalAmount: totAmount,
+    });
+  };
+
+  minusOnClickHandler = (item) => {
     let totAmount = 0;
-    cartItems.forEach((cartItem) => {
+    let cartItemsList = this.state.cartItems;
+    let itemRemoved = false;
+    let index = cartItemsList.indexOf(item);
+    cartItemsList[index].quantity--;
+    if (cartItemsList[index].quantity === 0) {
+      cartItemsList.splice(index, 1);
+      itemRemoved = true;
+    } else {
+      cartItemsList[index].totalAmount =
+        cartItemsList[index].price * cartItemsList[index].quantity;
+    }
+    cartItemsList.forEach((cartItem) => {
       totAmount = totAmount + cartItem.totalAmount;
     });
 
     this.setState({
       ...this.state,
-      cartItems: cartItems,
-      snackBarOpen: true,
-      snackBarMessage: "Item added to cart!",
+      cartItems: cartItemsList,
+      snackBarState: true,
+      snackBarMessage: itemRemoved
+        ? "Item removed from cart!"
+        : "Item quantity decreased by 1!",
       totalAmount: totAmount,
+    });
+  };
+
+  cartAddOnClickHandler = (item) => {
+    let cartItems = this.state.cartItems;
+    let index = cartItems.indexOf(item);
+    cartItems[index].quantity++; //Updating the quantity ofthe relevant item in the cart
+    cartItems[index].totalAmount =
+      cartItems[index].price * cartItems[index].quantity; //updating the total price of the item
+
+    //Updating the Total amount ofthe cart
+    let totAmount = 0;
+    cartItems.forEach((cartItem) => {
+      totAmount = totAmount + cartItem.totalAmount;
+    });
+
+    //Updating the state
+    this.setState({
+      ...this.state,
+      cartItems: cartItems,
+      snackBarState: true,
+      snackBarMessage: "Item quantity increased by 1!",
+      totAmount: totAmount,
+    });
+  };
+
+  checkoutOnClickHandler = () => {
+    let cartItems = this.state.cartItems;
+    let isLoggedIn =
+      sessionStorage.getItem("access-token") == null ? false : true;
+    if (cartItems.length === 0) {
+      //Checking if cart is empty
+      this.setState({
+        ...this.state,
+        snackBarState: true,
+        snackBarMessage: "Please add an item to your cart!",
+      });
+    } else if (!isLoggedIn) {
+      //Checking if customer is not loggedIn.
+      this.setState({
+        ...this.state,
+        snackBarState: true,
+        snackBarMessage: "Please login first!",
+      });
+    } else {
+      //If all the condition are satisfied user pushed to the checkout screen
+      this.props.history.push({
+        pathname: "/checkout",
+        cartItems: this.state.cartItems,
+        restaurantDetails: this.state.restaurantDetails,
+      });
+    }
+  };
+
+  snackBarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({
+      ...this.state,
+      snackBarMessage: "",
+      snackBarState: false,
+    });
+  };
+
+  changeBadgeVisibility = () => {
+    this.setState({
+      ...this.state,
+      badgeVisible: !this.state.badgeVisible,
     });
   };
 
