@@ -50,14 +50,11 @@ class Header extends Component {
 
             contactnumber: "",
             password: "",
-
             firstname: "",
             lastname: "",
             email: "",
             passwordReg: "",
             mobile: "",
-
-
             passwordRequired: "dispNone",
             contactNumberRequired: "dispNone",
             emailRequired: "dispNone",
@@ -65,18 +62,15 @@ class Header extends Component {
             lastnameRequired: "dispNone",
             mobileRequired: "dispNone",
             passwordRegRequired: "dispNone",
-
             passwordMsg: "required",
             passwordRegMsg: "required",
             emailRegMsg: "required",
             mobileMsg: "required",
             contactNumberMsg: "required",
-
             signupError: "dispNone",
             signupErrorMsg: "",
             loginError: "dispNone",
             loginErrorMsg: "",
-
             snackBarOpen: false,
             snackBarMessage: "",
             registrationSuccess: false,
@@ -88,17 +82,13 @@ class Header extends Component {
         super();
 
         this.state = {
-
             contactnumber: "",
             password: "",
-
             firstname: "",
             lastname: "",
             email: "",
             passwordReg: "",
             mobile: "",
-
-
             passwordRequired: "dispNone",
             contactNumberRequired: "dispNone",
             emailRequired: "dispNone",
@@ -106,39 +96,37 @@ class Header extends Component {
             lastnameRequired: "dispNone",
             mobileRequired: "dispNone",
             passwordRegRequired: "dispNone",
-
             passwordMsg: "required",
             passwordRegMsg: "required",
             emailRegMsg: "required",
             mobileMsg: "required",
             contactNumberMsg: "required",
-
             signupError: "dispNone",
             signupErrorMsg: "",
             loginError: "dispNone",
             loginErrorMsg: "",
-
             snackBarOpen: false,
             snackBarMessage: "",
             registrationSuccess: false,
             transition: Fade,
-
             modalIsOpen: false,
             value: 0,
             loggedIn: sessionStorage.getItem('access-token') == null ? false : true
         };
     }
 
+    //method to handle when the modal is opened
     openModalHandler = () => {
         this.setDefaultState();
         this.setState({modalIsOpen: true});
     }
 
+    //method to handle when the modal is closed
     closeModalHandler = () => {
         this.setState({modalIsOpen: false})
     }
 
-
+    //method to handle the change in the tabs
     tabChangeHandler = (event, value) => {
 
         this.setState({
@@ -148,40 +136,47 @@ class Header extends Component {
 
     }
 
+    //method to handle any changes in the contact number  of the customer and updates state
     inputContactNumberChangeHandler = (e) => {
         this.setState({contactnumber: e.target.value})
     }
 
+    //method to handle any changes in the password of the customer and updates state
     inputPasswordChangeHandler = (e) => {
         this.setState({password: e.target.value})
     }
 
-
+    //method to handle any changes in the email of the customer and updates state
     inputEmailChangeHandler = (e) => {
         this.setState({email: e.target.value})
 
     }
 
+    //method to handle any changes in the first name of the customer and updates state
     inputFirstnameChangeHandler = (e) => {
         this.setState({firstname: e.target.value})
 
     }
 
+    //method to handle any changes in the last name  of the customer and updates state
     inputLastnameChangeHandler = (e) => {
         this.setState({lastname: e.target.value})
 
     }
 
+    //method to handle any changes in the contact number of the customer during signup and updates state
     inputMobileChangeHandler = (e) => {
         this.setState({mobile: e.target.value})
 
     }
 
+    //method to handle any changes in the password of the customer during signup and updates state
     inputPasswordRegChangeHandler = (e) => {
         this.setState({passwordReg: e.target.value})
 
     }
 
+    //method to handle the snackbar close
     snackBarClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -193,6 +188,7 @@ class Header extends Component {
         })
     }
 
+    //method to handle when the login button is clicked
     loginClickHandler = () => {
         let contactnumber = this.state.contactnumber;
         contactnumber === "" ? this.setState({contactNumberRequired: "dispBlock"}) : this.setState({contactNumberRequired: "dispNone"});
@@ -201,7 +197,6 @@ class Header extends Component {
         if (contactnumber === "" || this.state.password === "") {
             return
         }
-
 
         if (contactnumber.length !== 10) {
             this.setState({contactNumberMsg: "Invalid Contact"})
@@ -234,7 +229,6 @@ class Header extends Component {
             }
         })
 
-
         xhrLogin.open("POST", this.props.baseUrl + "customer/login  ");
         xhrLogin.setRequestHeader("Authorization", "Basic " + window.btoa(contactnumber + ":" + this.state.password));
         xhrLogin.setRequestHeader("Content-Type", "application/json");
@@ -243,6 +237,7 @@ class Header extends Component {
 
     }
 
+    //method to handle when the signup button is clicked
     signUpClickHandler = () => {
         this.state.email === "" ? this.setState({emailRequired: "dispBlock"}) : this.setState({emailRequired: "dispNone"});
         this.state.firstname === "" ? this.setState({firstnameRequired: "dispBlock"}) : this.setState({firstnameRequired: "dispNone"});
@@ -302,6 +297,7 @@ class Header extends Component {
 
     }
 
+    //method to handle when logout is clicked
     logoutHandler = () => {
         console.log(sessionStorage.getItem('access-token'));
         sessionStorage.removeItem('uuid');
@@ -314,6 +310,7 @@ class Header extends Component {
 
     }
 
+    //method to handle when the profile button is clicked
     profileClickHandler = (event) => {
         this.state.anchorEl ? this.setState({anchorEl: null}) : this.setState({anchorEl: event.currentTarget});
         this.setState({
@@ -321,6 +318,7 @@ class Header extends Component {
         })
     };
 
+    //method called when text is entered in search box which in turn calls the search method in home page
     searchHandler = (event) => {
         this.props.searchHandler(event);
     };
