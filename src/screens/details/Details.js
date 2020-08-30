@@ -87,9 +87,9 @@ export default class Details extends Component {
       };
       cartItems.push(cartItem);
     }
-    let totalAmount = 0;
+    let totAmount = 0;
     cartItems.forEach((cartItem) => {
-      totalAmount = totalAmount + cartItem.totalAmount;
+      totAmount = totAmount + cartItem.totalAmount;
     });
 
     this.setState({
@@ -97,7 +97,7 @@ export default class Details extends Component {
       cartItems: cartItems,
       snackBarOpen: true,
       snackBarMessage: "Item added to cart!",
-      totalAmount: totalAmount,
+      totalAmount: totAmount,
     });
   };
 
@@ -115,12 +115,8 @@ export default class Details extends Component {
             />
           </div>
           <div className="rest_details">
-            <div className="restaurant-name">
-              <Typography
-                variant="h5"
-                component="h5"
-                className="restaurantName"
-              >
+            <div className="rest_name">
+              <Typography variant="h5" component="h5" className="rest_name">
                 {this.state.restaurantList.name}
               </Typography>
               <Typography
@@ -133,13 +129,13 @@ export default class Details extends Component {
               <Typography
                 variant="subtitle1"
                 component="p"
-                className="restaurantCategory"
+                className="rest_cat"
               >
                 {this.state.restaurantList.categoriesName}
               </Typography>
             </div>
             <div className="rest_rating_cost_parent">
-              <div className="restaurant-rating-container">
+              <div className="rest_rating_parent">
                 <div className="rest_rating">
                   <FaStar />
                   <Typography variant="subtitle1" component="p">
@@ -149,7 +145,7 @@ export default class Details extends Component {
                 <Typography
                   variant="caption"
                   component="p"
-                  className="textRatingCost"
+                  className="text_rating_cost"
                 >
                   AVERAGE RATING BY{" "}
                   {
@@ -166,7 +162,7 @@ export default class Details extends Component {
                   <Typography
                     variant="subtitle1"
                     component="p"
-                    className="avgCost"
+                    className="avg_cost"
                   >
                     {this.state.restaurantList.avgCost}
                   </Typography>
@@ -174,7 +170,7 @@ export default class Details extends Component {
                 <Typography
                   variant="caption"
                   component="p"
-                  className={classes.textRatingCost}
+                  className="text_rating_cost"
                 >
                   AVERAGE COST FOR TWO PEOPLE
                 </Typography>
@@ -205,7 +201,7 @@ export default class Details extends Component {
                     <Typography
                       variant="subtitle1"
                       component="p"
-                      className={classes.menuItemName}
+                      className="menu_item_name"
                     >
                       {item.item_name[0].toUpperCase() +
                         item.item_name.slice(1)}
@@ -215,13 +211,13 @@ export default class Details extends Component {
                       <Typography
                         variant="subtitle1"
                         component="p"
-                        className={classes.itemPrice}
+                        className="item_price"
                       >
                         {item.price.toFixed(2)}
                       </Typography>
                     </div>
                     <IconButton
-                      className="addButton"
+                      className="add_button"
                       aria-label="add"
                       onClick={() => this.itemAddOnClickHandler(item)}
                     >
@@ -269,7 +265,7 @@ export default class Details extends Component {
                   <Typography
                     variant="subtitle1"
                     component="p"
-                    className="menuItemName"
+                    className="menu_item_name"
                     id="cart-menu-item-name"
                   >
                     {cartItem.name[0].toUpperCase() + cartItem.name.slice(1)}
@@ -279,7 +275,7 @@ export default class Details extends Component {
                       className={classes.cartItemButton}
                       id="minus_button"
                       aria-label="remove"
-                      onClick={() => this.minusButtonClickHandler(cartItem)}
+                      onClick={() => this.minusOnClickHandler(cartItem)}
                     >
                       <FaMinus />
                     </IconButton>
@@ -293,12 +289,12 @@ export default class Details extends Component {
                     <IconButton
                       className={classes.cartItemButton}
                       aria-label="add"
-                      onClick={() => this.cartAddButtonClickHandler(cartItem)}
+                      onClick={() => this.cartAddOnClickHandler(cartItem)}
                     >
                       <FaPlus />
                     </IconButton>
                   </div>
-                  <div className="item-price">
+                  <div className="item_price">
                     <i
                       className="fa fa-inr"
                       aria-hidden="true"
@@ -307,7 +303,7 @@ export default class Details extends Component {
                     <Typography
                       variant="subtitle1"
                       component="p"
-                      className="itemPrice"
+                      className="item_price"
                       id="cart_item_price"
                     >
                       {cartItem.totAmt.toFixed(2)}
@@ -341,7 +337,7 @@ export default class Details extends Component {
                 color="primary"
                 fullWidth={true}
                 className="checkOutButton"
-                onClick={this.checkOutButtonClickHandler}
+                onClick={this.checkoutOnClickHandler}
               >
                 CHECKOUT
               </Button>

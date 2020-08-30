@@ -35,7 +35,7 @@
   display: flex;
   align-items: baseline;
 }
-.restaurant-rating-container {
+.rest_rating_parent {
   display: flex;
   flex-direction: column;
 }
@@ -136,9 +136,11 @@
     margin-right: 16px;
     padding: 0px;
   }
+
   .menu_details {
     width: 100%;
   }
+
   .my_cart {
     width: 100%;
     padding-top: 30px;
@@ -151,34 +153,34 @@
   margin-left: auto;
 }
 
-.textRatingCost {
+.text_rating_cost {
   text-overflow: "clip";
   width: "145px";
   color: "grey";
 }
 
-.restaurantname {
+.rest_name {
   padding: "8px0px8px0px";
   font-size: "30px";
 }
 
-.restaurantcategory {
+.rest_cat {
   padding: "8px 0px 8px 0px";
 }
 
-.avgCost {
+.avg_cost {
   padding-left: "5px";
 }
 
-.itemPrice {
+.item_price {
   padding-left: "5px";
 }
 
-.addButton {
+.add_button {
   margin-left: "25px";
 }
 
-.menuItemName {
+.menu_item_name {
   margin-left: "20px";
 }
 
