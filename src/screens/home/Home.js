@@ -18,25 +18,6 @@ class Home extends Component {
         }
     }
 
-    componentDidMount() {
-        // Intialize the cart
-        sessionStorage.removeItem('customer-cart');
-        // get restaurants from api
-        let dataRestaurants = null;
-        let xhrRestaurants = new XMLHttpRequest();
-        xhrRestaurants.addEventListener('readystatechange', function () {
-            if (this.readyState === 4) {
-                this.setState({
-                    restaurants: JSON.parse(this.responseText).restaurants
-                })
-            }
-        })
-        xhrRestaurants.open('GET', this.props.baseUrl + 'restaurant');
-        xhrRestaurants.send(dataRestaurants);
-
-        this.updateCardsGridListCols();
-    }
-
     updateCardsGridListCols = () => {
         if (window.innerWidth >= 1300) {
             this.setState({cards: 4});
@@ -52,6 +33,23 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        // Intialize the cart
+        sessionStorage.removeItem('customer-cart');
+        // get restaurants from api
+        let dataRestaurants = null;
+        let xhrRestaurants = new XMLHttpRequest();
+        let that = this;
+        xhrRestaurants.addEventListener('readystatechange', function () {
+            if (this.readyState === 4) {
+                that.setState({
+                    restaurants: JSON.parse(this.responseText).restaurants
+                })
+            }
+        })
+        xhrRestaurants.open('GET', this.props.baseUrl + 'restaurant');
+        xhrRestaurants.send(dataRestaurants);
+
+        this.updateCardsGridListCols();
         window.addEventListener('resize', this.updateCardsGridListCols);
     }
 

@@ -321,6 +321,10 @@ class Header extends Component {
         })
     };
 
+    searchHandler = (event) => {
+        this.props.searchHandler(event);
+    };
+
     render() {
         const {classes} = this.props;
         return (
@@ -335,6 +339,7 @@ class Header extends Component {
                                    <SearchIcon id="search-icon" htmlcolor={"white"}></SearchIcon>
                                </InputAdornment>
                            }
+                           onChange={this.searchHandler}
                            placeholder='Search by Restaurant Name' type="text" htmlcolor="white"/>
                 </div>
 
