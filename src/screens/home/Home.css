@@ -4,3 +4,45 @@
     flex-direction: column;
     flex-flow: wrap;
 }
+.restaurent-Card {
+    height: 340px;
+    max-height: 340px;
+    width: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.null-Restaurant {
+    margin-top: 15px;
+    margin-left: 25px;
+}
+
+.restaurant-GridList {
+    display: flex;
+    margin: auto;
+}
+
+.restaurent-CardMedia {
+    height: 140px;
+}
+
+.restaurant-RateSlab {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.restaurant-Rate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50px;
+    padding: 5px;
+    color: white;
+    background-color: #FDD835;
+}
