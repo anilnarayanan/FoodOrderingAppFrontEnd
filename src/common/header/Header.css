@@ -65,3 +65,12 @@
     color: #c2c2c2;
     margin-left: 2px;
 }
+
+.btn-header {
+    margin-right: 10px;
+}
+
+.text-input {
+    width: 80%;
+    margin: 20% ;
+}
