@@ -21,7 +21,7 @@ class Home extends Component {
     componentWillMount(){
             // Intialize the cart
             sessionStorage.removeItem('customer-cart');
-            // get restaurants from api
+            // get restaurants from API
             let dataRestaurants = null;
             let xhrRestaurants = new XMLHttpRequest();
             xhrRestaurants.addEventListener('readystatechange', function () {
@@ -36,14 +36,14 @@ class Home extends Component {
 
             this.updateCardsGridListCols();
         }
-
+        //Grid Display of Resaturant Cards
         updateCardsGridListCols = () => {
-            if (window.innerWidth >= 1300) {
+            if (window.innerWidth >= 1000) {
                 this.setState({ cards: 4 });
                 return;
             }
 
-            if (window.innerWidth >= 1000) {
+            if (window.innerWidth >= 700) {
                 this.setState({ cards: 3 });
                 return;
             }
@@ -61,7 +61,7 @@ class Home extends Component {
         restaurantCardTileOnClickHandler = (restaurantId) => {
             this.props.history.push('/restaurant/' + restaurantId);
         }
-
+        //Search Bar Event Handling
         searchHandler = (event) => {
             let that = this;
             let dataRestaurants = null;
