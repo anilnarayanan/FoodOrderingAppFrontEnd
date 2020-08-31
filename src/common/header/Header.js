@@ -110,7 +110,7 @@ class Header extends Component {
             registrationSuccess: false,
             transition: Fade,
             modalIsOpen: false,
-            isMenuOpen:false,
+            isMenuOpen: false,
             value: 0,
             loggedIn: sessionStorage.getItem('access-token') == null ? false : true
         };
@@ -329,7 +329,7 @@ class Header extends Component {
         return (
             <div className="flex-container header">
                 <div className="logo"><FastfoodIcon/></div>
-                {this.props.showHeaderSearchBox != false ?
+                {this.props.showHeaderSearchBox !== false ?
                     <div className="search">
                         <Input id="search"
                                className={classes.searchText}
