@@ -19,6 +19,10 @@ class Controller extends Component {
             render={(props) => <Home {...props} baseUrl={this.baseUrl} />}
           />
           <Route
+            path="/profile"
+            render={(props) => <Profile {...props} baseUrl={this.baseUrl} />}
+          />
+          <Route
             path="/restaurant/:id"
             render={(props) => <Details {...props} baseUrl={this.baseUrl} />}
           />
