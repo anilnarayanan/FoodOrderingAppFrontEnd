@@ -1,50 +1,52 @@
-  
-.gridListMain{
+
+.gridListMain {
     display: flex;
-    flex-wrap:nowrap !important;
+    flex-wrap: nowrap !important;
     transform: translateZ(0);
-    height:400px;
+    height: 400px;
     width: 1000px !important;
-    
+
 }
+
 @media only screen and (max-width: 1400px) {
-    .saveAddressButton{
-        width:140px !important;
+    .saveAddressButton {
+        width: 140px !important;
     }
 }
 
-.gridListTile{
+.gridListTile {
     margin-top: 1%;
-    width:33% !important;
-    height:90% !important;
+    width: 33% !important;
+    height: 90% !important;
     margin-left: 1%;
-    box-shadow:2px -3px 6px 3px grey;
+    box-shadow: 2px -3px 6px 3px grey;
 }
 
 /*Higlighting selected address and check circle format*/
-.selectedAddress{
+.selectedAddress {
     margin-top: 1%;
-    width:33% !important;
-    height:90% !important;
+    width: 33% !important;
+    height: 90% !important;
     margin-left: 1%;
-    box-shadow:2px -3px 6px 3px #f50057;
+    box-shadow: 2px -3px 6px 3px #f50057;
 }
-.selectAddresscircle{
-margin-left: 80% !important;
+
+.selectAddresscircle {
+    margin-left: 80% !important;
 }
 
 /*Individual address card height*/
-.addressCard{
-    height:290px !important;
+.addressCard {
+    height: 290px !important;
 }
 
 /*Below display props to toggle "View Summary and "Change" button*/
-    .dispNone{
-        display: none;
-    }
+.dispNone {
+    display: none;
+}
 
-    .dispText{
-        display: block;
-        font-size: 30px;
-        margin-left:4%;
-    }
+.dispText {
+    display: block;
+    font-size: 30px;
+    margin-left: 4%;
+}

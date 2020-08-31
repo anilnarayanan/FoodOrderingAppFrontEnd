@@ -27,20 +27,19 @@
     }
 }
 
-.dispNone{
-    display:none;
+.dispNone {
+    display: none;
 }
 
 .dispBlock {
     display: block;
 }
 
-.red
-{
+.red {
     color: red;
 }
 
-.tabs{
+.tabs {
     margin-bottom: 20px;
 }
 
@@ -72,5 +71,5 @@
 
 .text-input {
     width: 80%;
-    margin: 20% ;
+    margin: 20%;
 }

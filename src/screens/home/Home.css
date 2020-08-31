@@ -1,9 +1,10 @@
-.flex-container{
+.flex-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     flex-flow: wrap;
 }
+
 .restaurent-Card {
     height: 340px;
     max-height: 340px;
