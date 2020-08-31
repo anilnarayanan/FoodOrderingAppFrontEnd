@@ -329,18 +329,22 @@ class Header extends Component {
         return (
             <div className="flex-container header">
                 <div className="logo"><FastfoodIcon/></div>
-                <div className="search">
-                    <Input id="search"
-                           className={classes.searchText}
-                           fullWidth={true}
-                           startAdornment={
-                               <InputAdornment position="start">
-                                   <SearchIcon id="search-icon" htmlcolor={"white"}></SearchIcon>
-                               </InputAdornment>
-                           }
-                           onChange={this.searchHandler}
-                           placeholder='Search by Restaurant Name' type="text" htmlcolor="white"/>
-                </div>
+                {this.props.showHeaderSearchBox != false ?
+                    <div className="search">
+                        <Input id="search"
+                               className={classes.searchText}
+                               fullWidth={true}
+                               startAdornment={
+                                   <InputAdornment position="start">
+                                       <SearchIcon id="search-icon" htmlcolor={"white"}></SearchIcon>
+                                   </InputAdornment>
+                               }
+                               onChange={this.searchHandler}
+                               placeholder='Search by Restaurant Name' type="text" htmlcolor="white"/>
+                    </div>
+                    : ""
+                }
+
 
                 <div className="btn-header">
                     {this.state.loggedIn !== true ?
