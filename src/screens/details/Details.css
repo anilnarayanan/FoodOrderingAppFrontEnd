@@ -126,6 +126,9 @@
 
   .my_cart {
     width: 45%;
+    position: absolute;
+    right: 10%;
+    top: 40%;
   }
 }
 
@@ -144,6 +147,7 @@
   .my_cart {
     width: 100%;
     padding-top: 30px;
+    position: absolute;
   }
 }
 
