@@ -110,6 +110,7 @@ class Header extends Component {
             registrationSuccess: false,
             transition: Fade,
             modalIsOpen: false,
+            isMenuOpen:false,
             value: 0,
             loggedIn: sessionStorage.getItem('access-token') == null ? false : true
         };
@@ -356,7 +357,8 @@ class Header extends Component {
                     }
                 </div>
                 <Menu id="profile-menu"
-                      anchorEl={this.state.anchorEl} open={this.state.isMenuOpen}
+                      anchorEl={this.state.anchorEl}
+                      open={this.state.isMenuOpen}
                       onClose={this.profileClickHandler}>
                     <MenuList className="header-menu">
                         <MenuItem component={Link} to='/profile' disableGutters={false}>My Profile</MenuItem>
