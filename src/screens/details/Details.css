@@ -14,6 +14,7 @@
   align-items: center;
 }
 
+/* Block for small screen */
 @media screen and (min-width: 600px) {
   .rest_details {
     margin-left: 75px;
@@ -40,6 +41,7 @@
   flex-direction: column;
 }
 
+/* Block for small screen */
 @media screen and (max-width: 600px) {
   .rest_details {
     text-align: center;
@@ -119,6 +121,7 @@
   justify-content: space-between;
 }
 
+/* Block for small screen */
 @media screen and (min-width: 600px) {
   .menu_details {
     width: 45%;
