@@ -42,7 +42,7 @@ class Home extends Component {
     xhrRestaurants.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         that.setState({
-          restaurants: JSON.parse(this.responseText).restaurants,
+          restaurants: JSON.parse(this.responseText).restaurants
         });
       }
     });
