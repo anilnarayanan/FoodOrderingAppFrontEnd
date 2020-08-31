@@ -153,30 +153,29 @@ export default class Details extends Component {
   };
 
   checkoutOnClickHandler = () => {
-    console.log("I am in");
     let cartItemsList = this.state.cartList;
     let isLoggedState =
       sessionStorage.getItem("access-token") == null ? false : true;
     if (cartItemsList.length === 0) {
-      console.log("===0");
       this.setState({
         ...this.state,
         snackBarState: true,
         snackBarMsg: "Please add an item to your cart!",
       });
     } else if (!isLoggedState) {
-      console.log("logged state");
       this.setState({
         ...this.state,
         snackBarState: true,
         snackBarMsg: "Please login first!",
       });
     } else {
-      console.log("else");
       this.props.history.push({
         pathname: "/checkout",
-        cartItems: this.state.cartList,
-        restaurantDetails: this.state.restaurantList,
+        state: {
+          cartItems: this.state.cartList,
+          restaurantDetails: this.state.restaurantList,
+          totalCartItemsValue: this.state.totAmt,
+        },
       });
     }
   };
