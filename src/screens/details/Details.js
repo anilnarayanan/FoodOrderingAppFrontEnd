@@ -19,6 +19,8 @@ import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
 
+// Class component to render Restaurant details
+
 export default class Details extends Component {
   constructor() {
     super();
@@ -34,6 +36,7 @@ export default class Details extends Component {
     };
   }
 
+  // Initializes and updates data state for details
   componentDidMount() {
     let data = null;
     let that = this;
@@ -64,6 +67,8 @@ export default class Details extends Component {
         });
       }
     });
+
+    // Initiating REST request to the restaurants endpoint and fetching REST response
     xhr.open(
       "GET",
       this.props.baseUrl + "restaurant/" + this.props.match.params.id
@@ -71,6 +76,7 @@ export default class Details extends Component {
     xhr.send(data);
   }
 
+  // Handler to add item to cart
   itemAddOnClickHandler = (item) => {
     let totAmount = 0;
     let cartItemsList = this.state.cartList;
@@ -105,6 +111,7 @@ export default class Details extends Component {
     });
   };
 
+  // Handler to remove item from cart
   itemRemoveOnClickHandler = (item) => {
     let totAmount = 0;
     let cartItemsList = this.state.cartList;
@@ -133,6 +140,7 @@ export default class Details extends Component {
     });
   };
 
+  // Handler to increase item quantity in the cart
   cartAddOnClickHandler = (item) => {
     let totAmount = 0;
     let cartItemsList = this.state.cartList;
@@ -152,6 +160,7 @@ export default class Details extends Component {
     });
   };
 
+  // Handler to checkout items from the cart
   checkoutOnClickHandler = () => {
     let cartItemsList = this.state.cartList;
     let isLoggedState =
@@ -180,6 +189,7 @@ export default class Details extends Component {
     }
   };
 
+  // Handler to close the snackbar message
   snackBarCloseOnClickHandle = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -191,6 +201,7 @@ export default class Details extends Component {
     });
   };
 
+  // Handler to update the visible state of the header
   changeHeaderVisibility = () => {
     this.setState({
       ...this.state,
