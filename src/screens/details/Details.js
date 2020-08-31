@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Details.css";
+import Header from "../../common/header/Header";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import Badge from "@material-ui/core/Badge";
@@ -30,7 +31,7 @@ export default class Details extends Component {
       snackBarState: false,
       snackBarMsg: "",
       transition: Fade,
-      badgeVisible: false,
+      headerVisible: false,
     };
   }
 
@@ -192,10 +193,10 @@ export default class Details extends Component {
     });
   };
 
-  changeBadgeVisibility = () => {
+  changeHeaderVisibility = () => {
     this.setState({
       ...this.state,
-      badgeVisible: !this.state.badgeVisible,
+      headerVisible: !this.state.headerVisible,
     });
   };
 
@@ -203,6 +204,11 @@ export default class Details extends Component {
     const classes = this.props;
     return (
       <div>
+        <Header
+          baseUrl={this.props.baseUrl}
+          showHeaderSearchBox={false}
+          changeBadgeVisibility={this.changeHeaderVisibility}
+        ></Header>
         <div>
           <div className="rest_list">
             <div>
@@ -341,7 +347,7 @@ export default class Details extends Component {
                       badgeContent={this.state.cartList.length}
                       color="primary"
                       showZero={true}
-                      invisible={this.state.badgeVisible}
+                      invisible={this.state.headerVisible}
                       className={classes.badge}
                     >
                       <ShoppingCartIcon />

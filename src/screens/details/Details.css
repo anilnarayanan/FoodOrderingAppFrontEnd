@@ -198,14 +198,16 @@
   margin-right: "10px";
 }
 
-/* .cartItemButton {
-  padding: '10px';
-  border-radius: '0';
-  color: '#fdd835';
-  &:hover: {
-      'background-color': '#ffee58';
-  }
-} */
+.cartItemButton {
+  padding: "10px";
+  border-radius: "0";
+  color: "#fdd835";
+}
+
+.cartItemButton:hover {
+  background-color: "#ffee58";
+}
+
 .cardContent {
   padding-top: "0px";
   margin-left: "10px";
