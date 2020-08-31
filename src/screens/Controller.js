@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Home from "../screens/home/Home";
 import Details from "../screens/details/Details";
+import Profile from '../screens/profile/Profile'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class Controller extends Component {
